@@ -1,14 +1,14 @@
 const scence = new THREE.Scene()
 
 
+let i = 1
 
 
-
-const geo = new THREE.BoxGeometry(3,1,3)
-const material = new THREE.MeshLambertMaterial({color: 0xC5B4E3})
-const mesh = new THREE.Mesh(geo, material)
-mesh.position.set(0,0,0)
-scence.add(mesh)
+// const geo = new THREE.BoxGeometry(3,1,3)
+// const material = new THREE.MeshLambertMaterial({color: 0xC5B4E3})
+// const mesh = new THREE.Mesh(geo, material)
+// mesh.position.set(0,0,0)
+// scence.add(mesh)
 
 // const geo2 = new THREE.BoxGeometry(3,1,3)
 // const material2 = new THREE.MeshLambertMaterial({color: 0xff0000})
@@ -49,9 +49,11 @@ window.addEventListener('click', () => {
     const geo2 = new THREE.BoxGeometry(3,1,3)
     const material2 = new THREE.MeshLambertMaterial({color: 0x00ffee})
     const mesh2 = new THREE.Mesh(geo2, material2)
-    mesh2.position.set(0,1,0)
+    mesh2.position.set(0,i-2,0)
+    i += 1
     scence.add(mesh2)
     renderer.render(scence, camera);
+    
 
 })
 
