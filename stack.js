@@ -1,22 +1,8 @@
 const scence = new THREE.Scene()
 
-
 let i = 1
 
-
-// const geo = new THREE.BoxGeometry(3,1,3)
-// const material = new THREE.MeshLambertMaterial({color: 0xC5B4E3})
-// const mesh = new THREE.Mesh(geo, material)
-// mesh.position.set(0,0,0)
-// scence.add(mesh)
-
-// const geo2 = new THREE.BoxGeometry(3,1,3)
-// const material2 = new THREE.MeshLambertMaterial({color: 0xff0000})
-// const mesh2 = new THREE.Mesh(geo, material2)
-// mesh2.position.set(0,1,0)
-// scence.add(mesh2)
-
-
+let stack = []
 
 
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
@@ -45,15 +31,63 @@ document.body.appendChild(renderer.domElement);
 
 
 window.addEventListener('click', () => {
+
+
+    const color = randomColor
     
-    const geo2 = new THREE.BoxGeometry(3,1,3)
-    const material2 = new THREE.MeshLambertMaterial({color: 0x00ffee})
+    const geo2 = new THREE.BoxGeometry(2,1,2)
+
+    let material2
+    
+    if(i % 2 == 0) {
+        material2 = new THREE.MeshLambertMaterial({color: 0x00ffee})
+    }
+
+    else {
+        material2 = new THREE.MeshLambertMaterial({color: 0xaaffee})
+    }
+
+
+      
     const mesh2 = new THREE.Mesh(geo2, material2)
-    mesh2.position.set(0,i-2,0)
-    i += 1
+    mesh2.position.set(-1,i-2,2)
     scence.add(mesh2)
-    renderer.render(scence, camera);
     
+    var position = new THREE.Vector3().copy( mesh2.position );
+    mesh2.localToWorld( position );
+    camera.lookAt( position );
+
+
+    
+    i += 1
+    renderer.render(scence, camera);
+
+
+    stack.push(geo2)
+    console.log(stack)
+
+
+    // scence.remove(mesh2)
+    // mesh2.geometry.dispose()
+    // mesh2.material.dispose()
+    // mesh2 = undefined
+    // i -= 1
+
+    // renderer.render(scence, camera)
+
+    
+
+
 
 })
 
+
+const randomColor = () => {
+    let color = '0x';
+    for (let i = 0; i < 6; i++){
+       const random = Math.random();
+       const bit = (random * 16) | 0;
+       color += (bit).toString(16);
+    };
+    return color;
+ };
